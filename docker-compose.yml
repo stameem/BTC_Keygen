@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    container_name: btc-web
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=db
+      - DB_USER=btcuser
+      - DB_PASS=btcpass
+      - DB_NAME=btcdb
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: mariadb:latest
+    container_name: btc-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=btcdb
+      - MYSQL_USER=btcuser
+      - MYSQL_PASSWORD=btcpass
+    ports:
+      - "3306:3306"   # for connecting with MySQL clients
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  db_data:
