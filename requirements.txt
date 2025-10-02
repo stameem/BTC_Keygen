@@ -1,0 +1,7 @@
+nicegui
+pillow
+qrcode
+requests
+reportlab
+bitcoin
+mysql-connector-python
